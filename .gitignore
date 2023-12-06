@@ -1,0 +1,20 @@
+__pycache__
+
+/logs
+/*.log
+/storage
+/cache
+/.test
+/test/storage
+
+/*.py
+!/main_tradingview.py
+!/main_tradefi.py
+
+# env
+/.env*.local
+
+# data
+/pgdata
+/data
+/data_dev

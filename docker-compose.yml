@@ -1,0 +1,16 @@
+version: '3'
+services:
+  postgres:
+    container_name: tv_postgres
+    image: postgres
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ryan
+      POSTGRES_PASSWORD: 910723
+      POSTGRES_DB: tradingview
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+# start docker-compose: docker-compose up -d
+# enter psql in docker: docker exec -it tv_postgres psql -U ryan tradingview
