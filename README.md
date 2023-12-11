@@ -1,8 +1,19 @@
-# TradingView Scraper
+## TradingView Scraper
+## Execution
+
+Development
+```bash=
+$ MODE=dev python main.py
+```
+
+Production
+```bash=
+$ MODE=prod python main.py
+```
 
 ## Environment Variables
 * variables
-    `MODE` - `dev` or `prod`
+    `MODE` - `prod` or `dev` (default)
 * dotenv files
     * production
         * `.env.local.production`
@@ -22,27 +33,12 @@
         * DBPASS: password of the database
         * TV_STORAGE_DIR: directory to store the tradingview data
         * TV_MAX_CS: maximum number of concurrent chart sessions for tradingview
-        * CUSTOM_STORAGE_DIR: directory to store the custom data (fred and investing.com data)
-        * FRED_API_KEY: api key for fredapi
     * optional
         * TV_USERNAME: usernames for tradingview basic accounts, split by comma
         * TV_PASSWORD: passwords for tradingview basic accounts, split by comma
         * PRO_TV_USERNAME: usernames for tradingview pro accounts, split by comma
         * PRO_TV_PASSWORD: passwords for tradingview pro accounts, split by comma
 
-## Trading View
-
-### Execution
-
-Development
-```bash
-MODE=dev python main_tradingview.py
-```
-
-Production
-```bash
-MODE=prod python main_tradingview.py
-```
 
 ### Structure
 
@@ -94,39 +90,3 @@ MODE=prod python main_tradingview.py
 
 ### Scraper
 ![Scraper](./docs/tv-ws-flowchart.png)
-
-## Tradefi (Fred & Investing.com)
-
-### Execution
-
-Development
-```bash
-MODE=dev python main_tradefi.py
-```
-
-Production
-```bash
-MODE=prod python main_tradefi.py
-```
-
-### Structure
-
-* main_tradefi.py
-* Investing.com engine
-    * packages/investing/engine.py
-    * Crawler
-        * packages/investing/crawler.py
-        * Speeds up by disabling unnecessary browser functions
-    * Runs once a day
-    * Get raw crawled data from Investing.com with crawler
-    * Preprocess raw data
-        * packages/investing/preprocessor.py
-        * Get release date and index date
-        * Fix special cases
-        * Get timestamp of index date (First day of the month at 12:00AM UTC)
-        * Fill missing timestamps by deducing one month from previous timestamps
-* Fred engine
-    * packages/fred/engine.py
-    * Handler
-        * packages/fred/handler.py
-    * Runs once a day
