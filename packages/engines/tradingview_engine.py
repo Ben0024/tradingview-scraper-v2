@@ -306,5 +306,5 @@ class ScraperEngine:
             try:
                 self.handleTask(task)
             except Exception as e:
-                self.logger.error("Exception: {}".format(e))
-                self.logger.error("Traceback: {}".format(traceback.format_exc()))
+                self.logger.error(f"Exception: {e}")
+                self.logger.error(f"Traceback: {traceback.format_exc()}")
