@@ -2,13 +2,13 @@
 ## Execution
 
 #### Development
-```bash
-MODE=dev python main_tradingview.py
+```bash=
+$ MODE=dev python main.py
 ```
 
 #### Production
-```bash
-MODE=prod python main_tradingview.py
+```bash=
+$ MODE=prod python main.py
 ```
 
 ## Environment Variables
