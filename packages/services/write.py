@@ -110,7 +110,9 @@ def f_search_start_byte_of_line(
         m = (l_byte + r_byte) // 2
         ts = f_get_line_ts(file, m)
         if ts is None:
+            # TODO should be handle more carefully
             record_error_file(file.name)
+            return r_byte
         if ts < target_ts:
             l_byte = m + 1
         else:
@@ -228,7 +230,7 @@ def write_to_file(storage_dir: str, symbol: str, interval: str, bars: list) -> d
                     ]
                     for old_line in old_overlapped_lines
                 ]
-            except:
+            except Exception:
                 record_error_file(filepath)
 
             # new overlapped

@@ -108,7 +108,7 @@ async def async_get_multiple_bars(
                                 logger.error(f"Error: Unknown message type: {m} {p}")
                             elif (
                                 "type" in RESPONSE_TYPE[m]
-                                and RESPONSE_TYPE[m]["type"] == "error"
+                                and RESPONSE_TYPE[m]["type"] == "error"  # noqa: W503
                             ):
                                 logger.error(
                                     f"Error {m}: {p}, pair: {cs_info[cs_id].current_symbol_pair}"
@@ -125,8 +125,10 @@ async def async_get_multiple_bars(
 
                                 if (
                                     data_frequency is not None
-                                    and cur_interval is not None
-                                    and cmp_interval(data_frequency, cur_interval) > 0
+                                    and cur_interval is not None  # noqa: W503
+                                    and (  # noqa: W503
+                                        cmp_interval(data_frequency, cur_interval) > 0
+                                    )
                                 ):
                                     logger.warning(
                                         f"{cur_pair} should be at least {data_frequency}"
@@ -158,7 +160,7 @@ async def async_get_multiple_bars(
                                 one_fifth = int(math.ceil(pair_num / 20))
                                 if (
                                     complete_cnt % one_fifth == 0
-                                    or complete_cnt == pair_num
+                                    or complete_cnt == pair_num  # noqa: W503
                                 ):
                                     logger.info(f"Progress: {complete_cnt}/{pair_num}")
 
@@ -255,7 +257,7 @@ def sync_parallel_get_multiple_bars(
     timeout: int = 3,
     num_processes: int = 1,
     max_cs: int = 10,
-) -> list[tuple[str, str, list, list]] | None:
+) -> list[tuple[str, str, list, list]]:
     """get bars for multiple pairs in parallel
 
     Args:
@@ -287,8 +289,8 @@ def sync_parallel_get_multiple_bars(
                 (
                     logger,
                     auth_token,
+                    symbol_pair_list[i : i + offset],  # noqa: E203
                     locale,
-                    symbol_pair_list[i : i + offset],
                     timeout,
                     max_cs,
                 )
@@ -311,7 +313,7 @@ def sync_parallel_get_multiple_bars(
             # flush=True,
         )
     finally:
-        return result
+        return result if result is not None else []
 
 
 # alias to sync_parallel_get_multiple_bars
